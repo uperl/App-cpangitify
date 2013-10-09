@@ -24,6 +24,36 @@ use URI;
 
  % cpan2git Foo::Bar
 
+=head1 DESCRIPTION
+
+This script fetches all known revisions of a distribution from CPAN/BackPAN
+and creates a git repository with one revision and one tag for each version
+of the distribution.
+
+=head1 OPTIONS
+
+=head2 --help | -h
+
+Print out help and exit.
+
+=head2 --version
+
+Print out version and exit.
+
+=head1 CAVEATS
+
+If the distribution name has changed, this script has no way of knowing it
+and so only revisions with the same name will be included.  Possible 
+feature would include specifying multiple distribution names in the command
+line.
+
+Currently only works on UNIX like operating systems with rm, cp and a tar which
+automatically decompresses compressed tars.
+
+There isn't a test aside from making sure L<App::cpan2git> compiles.
+
+Patches are welcome.
+
 =cut
 
 GetOptions(
@@ -36,11 +66,11 @@ GetOptions(
             
 my $name = shift @ARGV;
 
+$name =~ s/::/-/g;
+
 pod2usage(1) unless $name;
 
-my $dest = dir()->absolute->subdir(
-  do { my $tmp = $name; $tmp =~ s/::/-/g; $tmp }
-);
+my $dest = dir()->absolute->subdir($name);
 
 if(-e $dest)
 {
