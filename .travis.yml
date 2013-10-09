@@ -1,7 +1,7 @@
 language: perl
 
-#install:
-#  - cpanm -n Foo::Bar
+install:
+  - cpanm -n BackPAN::Index Path::Class Git::Wrapper File::Temp LWP::UserAgent File::Chdir autodie JSON URI
 
 perl:
   - "5.10"
