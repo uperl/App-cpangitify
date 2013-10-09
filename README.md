@@ -12,6 +12,11 @@ This script fetches all known revisions of a distribution from CPAN/BackPAN
 and creates a git repository with one revision and one tag for each version
 of the distribution.
 
+The idea is to create a starting point for a git work flow when adopting a
+CPAN module for which you don't have access to the original repository.
+It is of course better to import from Subversion or to clone an existing
+git repository, but that may not be an option.
+
 # OPTIONS
 
 ## \--help | -h
@@ -33,6 +38,10 @@ Currently only works on UNIX like operating systems with rm, cp and a tar which
 automatically decompresses compressed tars.
 
 There isn't a test aside from making sure [App::cpan2git](http://search.cpan.org/perldoc?App::cpan2git) compiles.
+
+Each commit belongs to the CPAN author who submitted the corresponding release,
+therefore `git blame` may not be that useful for the imported portion of
+your new repository history.
 
 Patches are welcome.
 
