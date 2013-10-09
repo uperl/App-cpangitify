@@ -17,6 +17,15 @@ CPAN module for which you don't have access to the original repository.
 It is of course better to import from Subversion or to clone an existing
 git repository, but that may not be an option.
 
+If the distribution you are migrating changed names during its history,
+simply specify each name it had on the command line.  Be sure to specify
+the current name first (this will be used when creating a directory name
+for the repository).  For example [Mojolicious::Plugin::TtRenderer](http://search.cpan.org/perldoc?Mojolicious::Plugin::TtRenderer) was
+once called [MojoX::Renderer::TT](http://search.cpan.org/perldoc?MojoX::Renderer::TT), so you would get both names in the
+history like this:
+
+    % cpan2git Mojolicious::Plugin::TtRenderer MojoX::Renderer::TT
+
 # OPTIONS
 
 ## \--help | -h
@@ -29,15 +38,8 @@ Print out version and exit.
 
 # CAVEATS
 
-If the distribution name has changed, this script has no way of knowing it
-and so only revisions with the same name will be included.  Possible 
-feature would include specifying multiple distribution names in the command
-line.
-
 Currently only works on UNIX like operating systems with rm, cp and a tar which
 automatically decompresses compressed tars.
-
-There isn't a test aside from making sure [App::cpan2git](http://search.cpan.org/perldoc?App::cpan2git) compiles.
 
 Each commit belongs to the CPAN author who submitted the corresponding release,
 therefore `git blame` may not be that useful for the imported portion of

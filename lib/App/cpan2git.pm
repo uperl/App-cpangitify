@@ -38,8 +38,8 @@ sub main
   local @ARGV = @_;
   
   my $opt_backpan_index_url;
-  my $opt_backpan_url;
-  $opt_metacpan_url = "http://api.metacpan.org/";
+  my $opt_backpan_url = "http://backpan.perl.org";
+  $opt_metacpan_url   = "http://api.metacpan.org/";
 
   GetOptions(
     'backpan_index_url=s' => \$opt_backpan_index_url,
@@ -52,9 +52,8 @@ sub main
     },
   ) || pod2usage(1);
 
-  my $name = shift @ARGV;
-
-  $name =~ s/::/-/g;
+  my @names = map { s/::/-/g; $_ } @ARGV;
+  my $name = $names[0];
 
   pod2usage(1) unless $name;
 
@@ -72,7 +71,7 @@ sub main
   );
 
   say "searching...";
-  my @rel = eval { $bpi->dist($name)->releases->search(undef, { order_by => 'date' }) };
+  my @rel = eval { $bpi->releases->search({ dist => \@names }, { order_by => 'date' }) };
 
   if($@ || @rel == 0)
   {
