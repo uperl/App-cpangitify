@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use File::HomeDir::Test;
 use File::HomeDir;
-use Test::More tests => 13;
+use Test::More tests => 14;
 use App::cpan2git;
 use Capture::Tiny qw( capture_merged );
 use File::chdir;
@@ -18,6 +18,7 @@ do {
   my @args = (
     '--backpan_index_url' => "file://localhost/home/ollisg/dev/App-cpan2git/t/backpan/backpan-index.txt.gz",
     '--backpan_url'       => "file://localhost/home/ollisg/dev/App-cpan2git/t/backpan",
+    '--metacpan_url'      => "file://localhost/home/ollisg/dev/App-cpan2git/t/api.metacpan.org/",
     'Foo::Bar',
   );
   
@@ -54,6 +55,8 @@ check(0.02);
 @yes = map { [ split /\// ] } qw( lib/Foo/Bar.pm t/use.t );
 @no  = map { [ split /\// ] } qw( t/stuffit.t lib/Foo/Bar/Baz.pm );
 check(0.01);
+
+pass 'okay';
 
 sub check
 {

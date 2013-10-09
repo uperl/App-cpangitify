@@ -30,6 +30,7 @@ L<cpan2git>
 =cut
 
 our $ua  = LWP::UserAgent->new;
+our $opt_metacpan_url;
 
 sub main
 {
@@ -38,10 +39,12 @@ sub main
   
   my $opt_backpan_index_url;
   my $opt_backpan_url;
+  $opt_metacpan_url = "http://api.metacpan.org/";
 
   GetOptions(
     'backpan_index_url=s' => \$opt_backpan_index_url,
     'backpan_url=s'       => \$opt_backpan_url,
+    'metacpan_url=s'      => \$opt_metacpan_url,
     'help|h'              => sub { pod2usage({ -verbose => 2}) },
     'version'             => sub {
       say 'cpan2git version ', ($App::cpan2git::VERSION // 'dev');
@@ -92,7 +95,7 @@ sub main
   
     unless(defined $cache->{$cpanid})
     {
-      my $uri = URI->new("http://api.metacpan.org/v0/author/" . $cpanid);
+      my $uri = URI->new($opt_metacpan_url . "v0/author/" . $cpanid);
       my $res = $ua->get($uri);
       unless($res->is_success)
       {
