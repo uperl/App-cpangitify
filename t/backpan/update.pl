@@ -12,5 +12,12 @@ foreach my $file (sort { $a->basename cmp $b->basename } $root->children)
   say $fh join(' ', join('/', qw( authors id L LO LOCAL ), $file->basename), $file->stat->mtime, -s $file );
 }
 
+$root = file(__FILE__)->parent->subdir(qw( authors id P PL PLICEASE ));
+
+foreach my $file (sort { $a->basename cmp $b->basename } $root->children)
+{
+  say $fh join(' ', join('/', qw( authors id P PL PLICEASE ), $file->basename), $file->stat->mtime, -s $file );
+}
+
 close $fh;
 
