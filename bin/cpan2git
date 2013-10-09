@@ -63,7 +63,7 @@ GetOptions(
     exit 1;
   },
 ) || pod2usage(1);
-            
+
 my $name = shift @ARGV;
 
 $name =~ s/::/-/g;
