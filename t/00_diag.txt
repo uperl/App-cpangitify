@@ -1,6 +1,7 @@
 BackPAN::Index
 Capture::Tiny
 ExtUtils::MakeMaker
+File::Copy::Recursive
 File::HomeDir
 File::chdir
 Git::Wrapper
