@@ -1,0 +1,12 @@
+BackPAN::Index
+ExtUtils::MakeMaker
+File::Temp
+File::chdir
+Getopt::Long
+Git::Wrapper
+LWP::UserAgent
+Path::Class
+Pod::Usage
+Test::More
+URI
+autodie
