@@ -16,7 +16,6 @@ use JSON qw( from_json );
 use URI;
 use PerlX::Maybe qw( maybe );
 use File::Copy::Recursive qw( rcopy );
-use  File::Path qw( remove_tree );
 
 # ABSTRACT: Convert cpan distribution from BackPAN to a git repository
 # VERSION
