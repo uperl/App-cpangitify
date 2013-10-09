@@ -16,8 +16,8 @@ do {
   $dir->mkpath(0,0700);
   my $git = Git::Wrapper->new($dir);
   $git->init;
-  $git->config( 'user.name'  , 'Test User'        );
-  $git->config( 'user.email' , 'test@example.com' );
+  $git->config( '--global', 'user.name'  , 'Test User'        );
+  $git->config( '--global', 'user.email' , 'test@example.com' );
 };
 
 do {
