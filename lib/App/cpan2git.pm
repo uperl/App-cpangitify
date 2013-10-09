@@ -14,6 +14,7 @@ use LWP::UserAgent;
 use File::chdir;
 use JSON qw( from_json );
 use URI;
+use PerlX::Maybe qw( maybe );
 
 # ABSTRACT: Convert cpan distribution from BackPAN to a git repository
 # VERSION
@@ -28,14 +29,21 @@ L<cpan2git>
 
 =cut
 
+our $ua  = LWP::UserAgent->new;
+
 sub main
 {
   my $class = shift;
   local @ARGV = @_;
+  
+  my $opt_backpan_index_url;
+  my $opt_backpan_url;
 
   GetOptions(
-    'help|h'     => sub { pod2usage({ -verbose => 2}) },
-    'version'    => sub {
+    'backpan_index_url=s' => \$opt_backpan_index_url,
+    'backpan_url=s'       => \$opt_backpan_url,
+    'help|h'              => sub { pod2usage({ -verbose => 2}) },
+    'version'             => sub {
       say 'cpan2git version ', ($App::cpan2git::VERSION // 'dev');
       exit 1;
     },
@@ -52,11 +60,13 @@ sub main
   if(-e $dest)
   {
     say "already exists: $dest";
-    exit 2;
+    return 2;
   }
 
   say "creating/updating index...";
-  my $bpi = BackPAN::Index->new;
+  my $bpi = BackPAN::Index->new(
+    maybe backpan_index_url => $opt_backpan_index_url,
+  );
 
   say "searching...";
   my @rel = eval { $bpi->dist($name)->releases->search(undef, { order_by => 'date' }) };
@@ -64,15 +74,13 @@ sub main
   if($@ || @rel == 0)
   {
     say "no releases found for $name";
-    exit 2;
+    return 2;
   }
 
   say "mkdir $dest";
   $dest->mkpath(0,0700);
 
   my $git = Git::Wrapper->new($dest->stringify);
-  my $ua  = LWP::UserAgent->new;
-  my $uri = URI->new("http://backpan.perl.org");
 
   $git->init;
 
@@ -90,7 +98,7 @@ sub main
       {
         say "error fetching $uri";
         say $res->status_line;
-        exit 2;
+        return 2;
       }
       $cache->{$cpanid} = from_json($res->decoded_content)
     }
@@ -111,14 +119,14 @@ sub main
   
     local $CWD = $tmp->stringify;
   
-    $uri->path($path);
+    my $uri = URI->new(join('/', $opt_backpan_url, $path));
     say "fetch ...";
     my $res = $ua->get($uri);
     unless($res->is_success)
     {
       say "error fetching $uri";
       say $res->status_line;
-      exit 2;
+      return 2;
     }
   
     do {
@@ -165,6 +173,8 @@ sub main
     });
     $git->tag($version);
   }
+  
+  return 0;
 }
 
 1;
