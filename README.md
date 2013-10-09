@@ -49,6 +49,20 @@ will probably do the wrong thing.
 
 Patches are welcome.
 
+# SEE ALSO
+
+Here are some similar projects:
+
+- [gitpan](https://github.com/gitpan)
+
+    Doesn't appear to have been updated in a number of years.
+
+- [ggoosen's cpan2git](https://github.com/ggoossen/cpan2git)
+
+The reason I am not using them is that they are designed to mirror the whole
+of BackPAN, but I'm mostly just interested in on or two distros here and
+there.
+
 # AUTHOR
 
 Graham Ollis <plicease@cpan.org>

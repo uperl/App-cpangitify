@@ -67,6 +67,28 @@ will probably do the wrong thing.
 
 Patches are welcome.
 
+=head1 SEE ALSO
+
+Here are some similar projects:
+
+=over 4
+
+=item
+
+L<gitpan|https://github.com/gitpan>
+
+Doesn't appear to have been updated in a number of years.
+
+=item
+
+L<ggoosen's cpan2git|https://github.com/ggoossen/cpan2git>
+
+=back
+
+The reason I am not using them is that they are designed to mirror the whole
+of BackPAN, but I'm mostly just interested in on or two distros here and
+there.
+
 =cut
 
 GetOptions(

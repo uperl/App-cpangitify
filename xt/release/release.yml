@@ -5,6 +5,9 @@ pod_spelling_system:
   stopwords:
     - BackPAN
     - cp
+    - distros
+    - ggoosen
+    - gitpan
 
 pod_coverage:
   # format is "Class#method" or "Class", regex allowed
