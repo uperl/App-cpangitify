@@ -4,6 +4,8 @@ File::Temp
 File::chdir
 Getopt::Long
 Git::Wrapper
+JSON
+JSON::XS
 LWP::UserAgent
 Path::Class
 Pod::Usage
