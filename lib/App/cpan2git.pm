@@ -159,26 +159,18 @@ sub main
     foreach my $child ($dest->children)
     {
       next if $child->basename eq '.git';
-      system 'rm', '-rf', "$child";
-      if(-d $child)
-      {
-        remove_tree($child);
-      }
-      else
-      {
-        unlink $child;
-      }
+      system 'rm', '-rf', $child;
     }
   
     foreach my $child ($source->children)
     {
       if(-d  $child)
       {
-        rcopy($child, $dest->subdir($child->basename));
+        rcopy($child, $dest->subdir($child->basename)) || die "unable to copy $child $!";
       }
       else
       {
-        rcopy($child, $dest->file($child->basename));
+        rcopy($child, $dest->file($child->basename)) || die "unable to copy $child $!";
       }
     }
   
