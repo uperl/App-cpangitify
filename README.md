@@ -43,6 +43,10 @@ Each commit belongs to the CPAN author who submitted the corresponding release,
 therefore `git blame` may not be that useful for the imported portion of
 your new repository history.
 
+The commits are ordered by date, so where there are interleaving of releases
+that belong to development and production branches this simple minded script
+will probably do the wrong thing.
+
 Patches are welcome.
 
 # AUTHOR
