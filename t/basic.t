@@ -12,13 +12,15 @@ use Path::Class qw( file dir );
 my $home = dir( File::HomeDir->my_home );
 
 do {
+  my $uri = URI::file->new(file(__FILE__)->parent->absolute->stringify);
+  
   local $CWD = "$home";
   my $ret;
-  
+
   my @args = (
-    '--backpan_index_url' => "file://localhost/home/ollisg/dev/App-cpan2git/t/backpan/backpan-index.txt.gz",
-    '--backpan_url'       => "file://localhost/home/ollisg/dev/App-cpan2git/t/backpan",
-    '--metacpan_url'      => "file://localhost/home/ollisg/dev/App-cpan2git/t/api.metacpan.org/",
+    '--backpan_index_url' => "$uri/backpan/backpan-index.txt.gz",
+    '--backpan_url'       => "$uri/backpan",
+    '--metacpan_url'      => "$uri/api.metacpan.org/",
     'Foo::Bar',
   );
   
