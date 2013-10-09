@@ -15,6 +15,7 @@ use File::chdir;
 use JSON qw( from_json );
 use URI;
 use PerlX::Maybe qw( maybe );
+use File::Copy::Recursive qw( rcopy );
 
 # ABSTRACT: Convert cpan distribution from BackPAN to a git repository
 # VERSION
@@ -162,7 +163,14 @@ sub main
   
     foreach my $child ($source->children)
     {
-      system 'cp', '-ar', "$child", "$dest";
+      if(-d  $child)
+      {
+        rcopy($child, $dest->subdir($child->basename));
+      }
+      else
+      {
+        rcopy($child, $dest->file($child->basename));
+      }
     }
   
     say "commit and tag...";
