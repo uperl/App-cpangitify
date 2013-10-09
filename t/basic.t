@@ -12,6 +12,15 @@ use Path::Class qw( file dir );
 my $home = dir( File::HomeDir->my_home );
 
 do {
+  my $dir = $home->subdir('foo');
+  $dir->mkpath(0,0700);
+  my $git = Git::Wrapper->new($dir);
+  $git->init;
+  $git->config( 'user.name'  , 'Test User'        );
+  $git->config( 'user.email' , 'test@example.com' );
+};
+
+do {
   my $uri = URI::file->new(file(__FILE__)->parent->absolute->stringify);
   
   local $CWD = "$home";
