@@ -16,6 +16,7 @@ use JSON qw( from_json );
 use URI;
 use PerlX::Maybe qw( maybe );
 use File::Copy::Recursive qw( rcopy );
+use  File::Path qw( remove_tree );
 
 # ABSTRACT: Convert cpan distribution from BackPAN to a git repository
 # VERSION
@@ -159,6 +160,14 @@ sub main
     {
       next if $child->basename eq '.git';
       system 'rm', '-rf', "$child";
+      if(-d $child)
+      {
+        remove_tree($child);
+      }
+      else
+      {
+        unlink $child;
+      }
     }
   
     foreach my $child ($source->children)
