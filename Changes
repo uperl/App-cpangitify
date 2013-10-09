@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.03      2013-10-09 15:43:54 -0400
+  - documentation
+
 0.02      2013-10-09 13:57:30 -0400
   - include date and author info from cpan
 
