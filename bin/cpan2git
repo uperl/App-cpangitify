@@ -13,6 +13,7 @@ use File::Temp qw( tempdir );
 use LWP::UserAgent;
 use File::chdir;
 use autodie qw( :system );
+use JSON qw( from_json );
 use URI;
 
 # PODNAME: cpan2git
@@ -68,10 +69,34 @@ my $uri = URI->new("http://backpan.perl.org");
 
 $git->init;
 
+sub author($)
+{
+  state $cache = {};
+  
+  my $cpanid = shift;
+  
+  unless(defined $cache->{$cpanid})
+  {
+    my $uri = URI->new("http://api.metacpan.org/v0/author/" . $cpanid);
+    my $res = $ua->get($uri);
+    unless($res->is_success)
+    {
+      say "error fetching $uri";
+      say $res->status_line;
+      exit 2;
+    }
+    $cache->{$cpanid} = from_json($res->decoded_content)
+  }
+  
+  sprintf "%s <%s>", $cache->{$cpanid}->{name}, $cache->{$cpanid}->{email}->[0];
+}
+
 foreach my $rel (@rel)
 {
   my $path    = $rel->path;
   my $version = $rel->version;
+  my $date    = $rel->date;
+  my $cpanid  = $rel->cpanid;
   
   say "$path [ $version ]";
   
@@ -126,7 +151,11 @@ foreach my $rel (@rel)
   say "commit and tag...";
   $git->add('.');
   $git->rm($_->from) for grep { $_->mode eq 'deleted' } $git->status->get('changed');
-  $git->commit({ message => "version $version" });
+  $git->commit({
+    message => "version $version",
+    date    => "$date +0000",
+    author  => author $cpanid,
+  });
   $git->tag($version);
 }
 
