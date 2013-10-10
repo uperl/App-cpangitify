@@ -8,6 +8,7 @@ pod_spelling_system:
     - distros
     - ggoosen
     - gitpan
+    - cpangitify
 
 pod_coverage:
   # format is "Class#method" or "Class", regex allowed

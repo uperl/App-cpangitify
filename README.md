@@ -61,9 +61,9 @@ Here are some similar projects:
 
 - [ggoosen's cpan2git](https://github.com/ggoossen/cpan2git)
 
-The reason I am not using them is that they are designed to mirror the whole
-of BackPAN, but I'm mostly just interested in on or two distros here and
-there.
+The reason I am not using them is that they are designed to mirror the 
+whole of CPAN/BackPAN, but I'm mostly just interested in one or two 
+distributions here and there.
 
 # AUTHOR
 
