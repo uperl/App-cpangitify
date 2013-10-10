@@ -1,10 +1,10 @@
-# cpan2git [![Build Status](https://secure.travis-ci.org/plicease/App-cpan2git.png)](http://travis-ci.org/plicease/App-cpan2git)
+# cpangitify [![Build Status](https://secure.travis-ci.org/plicease/App-cpan2git.png)](http://travis-ci.org/plicease/App-cpan2git)
 
 Convert cpan distribution from BackPAN to a git repository
 
 # SYNOPSIS
 
-    % cpan2git Foo::Bar
+    % cpangitify Foo::Bar
 
 # DESCRIPTION
 
@@ -24,7 +24,7 @@ for the repository).  For example [Mojolicious::Plugin::TtRenderer](http://searc
 once called [MojoX::Renderer::TT](http://search.cpan.org/perldoc?MojoX::Renderer::TT), so you would get both names in the
 history like this:
 
-    % cpan2git Mojolicious::Plugin::TtRenderer MojoX::Renderer::TT
+    % cpangitify Mojolicious::Plugin::TtRenderer MojoX::Renderer::TT
 
 # OPTIONS
 

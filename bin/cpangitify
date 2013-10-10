@@ -3,15 +3,15 @@
 use strict;
 use warnings;
 use v5.10;
-use App::cpan2git;
+use App::cpangitify;
 
-# PODNAME: cpan2git
+# PODNAME: cpangitify
 # ABSTRACT: Convert cpan distribution from BackPAN to a git repository
 # VERSION
 
 =head1 SYNOPSIS
 
- % cpan2git Foo::Bar
+ % cpangitify Foo::Bar
 
 =head1 DESCRIPTION
 
@@ -31,7 +31,7 @@ for the repository).  For example L<Mojolicious::Plugin::TtRenderer> was
 once called L<MojoX::Renderer::TT>, so you would get both names in the
 history like this:
 
- % cpan2git Mojolicious::Plugin::TtRenderer MojoX::Renderer::TT
+ % cpangitify Mojolicious::Plugin::TtRenderer MojoX::Renderer::TT
 
 =head1 OPTIONS
 
@@ -82,4 +82,4 @@ there.
 
 =cut
 
-exit App::cpan2git->main(@ARGV);
+exit App::cpangitify->main(@ARGV);

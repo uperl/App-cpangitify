@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - change name to cpangitify
+  - handle distros with name changes
 
 0.03      2013-10-09 15:43:54 -0400
   - documentation

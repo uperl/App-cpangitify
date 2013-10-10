@@ -1,4 +1,4 @@
-package App::cpan2git;
+package App::cpangitify;
 
 use strict;
 use warnings;
@@ -22,11 +22,11 @@ use File::Copy::Recursive qw( rcopy );
 
 =head1 DESCRIPTION
 
-This is the module for the L<cpan2git> script.  See L<cpan2git> for details.
+This is the module for the L<cpangitify> script.  See L<cpangitify> for details.
 
 =head1 SEE ALSO
 
-L<cpan2git>
+L<cpangitify>
 
 =cut
 
@@ -48,7 +48,7 @@ sub main
     'metacpan_url=s'      => \$opt_metacpan_url,
     'help|h'              => sub { pod2usage({ -verbose => 2}) },
     'version'             => sub {
-      say 'cpan2git version ', ($App::cpan2git::VERSION // 'dev');
+      say 'cpangitify version ', ($App::cpangitify::VERSION // 'dev');
       exit 1;
     },
   ) || pod2usage(1);

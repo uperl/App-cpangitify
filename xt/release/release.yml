@@ -13,5 +13,5 @@ pod_coverage:
   # format is "Class#method" or "Class", regex allowed
   # for either Class or method.
   private:
-    - App::cpan2git#author
-    - App::cpan2git#main
+    - App::cpangitify#author
+    - App::cpangitify#main

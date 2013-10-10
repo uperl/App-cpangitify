@@ -3,7 +3,7 @@ use warnings;
 use File::HomeDir::Test;
 use File::HomeDir;
 use Test::More tests => 14;
-use App::cpan2git;
+use App::cpangitify;
 use Capture::Tiny qw( capture_merged );
 use File::chdir;
 use URI::file;
@@ -33,8 +33,8 @@ do {
     'Foo::Bar',
   );
   
-  my $merged = capture_merged { $ret = App::cpan2git->main(@args) };
-  is($ret, 0, "% cpan2git @args");
+  my $merged = capture_merged { $ret = App::cpangitify->main(@args) };
+  is($ret, 0, "% cpangitify @args");
   note $merged;
 };
 
