@@ -1,4 +1,4 @@
-# cpangitify [![Build Status](https://secure.travis-ci.org/plicease/App-cpan2git.png)](http://travis-ci.org/plicease/App-cpan2git)
+# cpangitify [![Build Status](https://secure.travis-ci.org/plicease/App-cpangitify.png)](http://travis-ci.org/plicease/App-cpangitify)
 
 Convert cpan distribution from BackPAN to a git repository
 
