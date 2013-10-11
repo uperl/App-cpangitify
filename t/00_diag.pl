@@ -4,8 +4,8 @@ use Test::More;
 
 our $format;
 diag sprintf $format, 'git', eval {
-  require AnyEvent::Git::Wrapper;
-  AnyEvent::Git::Wrapper->new(".")->version;
+  require Git::Wrapper;
+  Git::Wrapper->new(".")->version;
 } || '-';
 
 1;
