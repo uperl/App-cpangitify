@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - include git version in test diagnostic
 
 0.04      2013-10-09 20:29:45 -0400
   - change name to cpangitify
