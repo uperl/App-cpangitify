@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.06      2013-10-13 15:12:49 -0400
+  - documentation (mention Git::CPAN::Patch)
+
 0.05      2013-10-13 05:39:34 -0400
   - require BackPAN::Index 0.41
 
