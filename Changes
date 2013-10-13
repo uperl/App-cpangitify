@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - require BackPAN::Index 0.41
 
 0.04_01   2013-10-11 17:38:22 -0400
   - include git version in test diagnostic
