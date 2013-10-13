@@ -66,6 +66,29 @@ Here are some similar projects:
 
 =item
 
+L<Git::CPAN::Patch>
+
+Comes with a C<git cpan import> which does something similar.  With this 
+incantation I was able to get a repository for L<YAML> (including history,
+but without authors and without the correct dates):
+
+ % mkdir YAML
+ % git init .
+ % git cpan import --backpan YAML
+ % git merge remotes/cpan/master
+
+One advantage here over C<cpangitify> is that you should then later be able to 
+import/merge future CPAN releases into yours.  C<Git::CPAN::Patch> also has a bunch of 
+other useful tools for creating and submitting patches and is definitely worth 
+checking out.
+
+If you do an internet search for this sort of thing you may see references
+to C<git-backpan-init>, but this does not appear to be part of the
+L<Git::CPAN::Patch> anymore (I believe C<git-import> with the C<--backpan>
+option is the equivalent).
+
+=item
+
 L<gitpan|https://github.com/gitpan>
 
 Doesn't appear to have been updated in a number of years.
@@ -76,9 +99,9 @@ L<ggoosen's cpan2git|https://github.com/ggoossen/cpan2git>
 
 =back
 
-The reason I am not using them is that they are designed to mirror the 
-whole of CPAN/BackPAN, but I'm mostly just interested in one or two 
-distributions here and there.
+The reason I am not using the latter two is that they are designed to 
+mirror the whole of CPAN/BackPAN, but I'm mostly just interested in one 
+or two distributions here and there.
 
 =cut
 

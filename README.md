@@ -55,15 +55,36 @@ Patches are welcome.
 
 Here are some similar projects:
 
+- [Git::CPAN::Patch](http://search.cpan.org/perldoc?Git::CPAN::Patch)
+
+    Comes with a `git cpan import` which does something similar.  With this 
+    incantation I was able to get a repository for [YAML](http://search.cpan.org/perldoc?YAML) (including history,
+    but without authors and without the correct dates):
+
+        % mkdir YAML
+        % git init .
+        % git cpan import --backpan YAML
+        % git merge remotes/cpan/master
+
+    One advantage here over `cpangitify` is that you should then later be able to 
+    import/merge future CPAN releases into yours.  `Git::CPAN::Patch` also has a bunch of 
+    other useful tools for creating and submitting patches and is definitely worth 
+    checking out.
+
+    If you do an internet search for this sort of thing you may see references
+    to `git-backpan-init`, but this does not appear to be part of the
+    [Git::CPAN::Patch](http://search.cpan.org/perldoc?Git::CPAN::Patch) anymore (I believe `git-import` with the `--backpan`
+    option is the equivalent).
+
 - [gitpan](https://github.com/gitpan)
 
     Doesn't appear to have been updated in a number of years.
 
 - [ggoosen's cpan2git](https://github.com/ggoossen/cpan2git)
 
-The reason I am not using them is that they are designed to mirror the 
-whole of CPAN/BackPAN, but I'm mostly just interested in one or two 
-distributions here and there.
+The reason I am not using the latter two is that they are designed to 
+mirror the whole of CPAN/BackPAN, but I'm mostly just interested in one 
+or two distributions here and there.
 
 # AUTHOR
 
