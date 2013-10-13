@@ -2,10 +2,6 @@
 
 Convert cpan distribution from BackPAN to a git repository
 
-# VERSION
-
-version 0.04\_01
-
 # SYNOPSIS
 
     % cpangitify Foo::Bar
