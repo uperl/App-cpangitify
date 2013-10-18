@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - make git 1.5.0 or better a requirement
 
 0.06      2013-10-13 15:12:49 -0400
   - documentation (mention Git::CPAN::Patch)

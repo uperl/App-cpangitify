@@ -12,6 +12,7 @@ LWP::UserAgent
 Path::Class
 PerlX::Maybe
 PerlX::Maybe::XS
+Sort::Versions
 Test::More
 URI
 URI::file
