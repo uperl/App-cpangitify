@@ -181,7 +181,8 @@ sub main
       date    => "$date +0000",
       author  => author $cpanid,
     });
-    $git->tag($version);
+    eval { $git->tag($version) };
+    warn $@ if $@;
   }
   
   return 0;

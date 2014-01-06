@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - make multiple tags a warning only
 
 0.07      2013-10-18 12:41:40 -0400
   - make git 1.5.0 or better a requirement
