@@ -1,6 +1,5 @@
 BackPAN::Index
 Capture::Tiny
-ExtUtils::MakeMaker
 File::Copy::Recursive
 File::HomeDir
 File::chdir
@@ -9,6 +8,7 @@ IPC::System::Simple
 JSON
 JSON::XS
 LWP::UserAgent
+Module::Build
 Path::Class
 PerlX::Maybe
 PerlX::Maybe::XS

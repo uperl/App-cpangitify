@@ -20,8 +20,8 @@ git repository, but that may not be an option.
 If the distribution you are migrating changed names during its history,
 simply specify each name it had on the command line.  Be sure to specify
 the current name first (this will be used when creating a directory name
-for the repository).  For example [Mojolicious::Plugin::TtRenderer](http://search.cpan.org/perldoc?Mojolicious::Plugin::TtRenderer) was
-once called [MojoX::Renderer::TT](http://search.cpan.org/perldoc?MojoX::Renderer::TT), so you would get both names in the
+for the repository).  For example [Mojolicious::Plugin::TtRenderer](https://metacpan.org/pod/Mojolicious::Plugin::TtRenderer) was
+once called [MojoX::Renderer::TT](https://metacpan.org/pod/MojoX::Renderer::TT), so you would get both names in the
 history like this:
 
     % cpangitify Mojolicious::Plugin::TtRenderer MojoX::Renderer::TT
@@ -55,10 +55,10 @@ Patches are welcome.
 
 Here are some similar projects:
 
-- [Git::CPAN::Patch](http://search.cpan.org/perldoc?Git::CPAN::Patch)
+- [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch)
 
     Comes with a `git cpan import` which does something similar.  With this 
-    incantation I was able to get a repository for [YAML](http://search.cpan.org/perldoc?YAML) (including history,
+    incantation I was able to get a repository for [YAML](https://metacpan.org/pod/YAML) (including history,
     but without authors and without the correct dates):
 
         % mkdir YAML
@@ -73,7 +73,7 @@ Here are some similar projects:
 
     If you do an internet search for this sort of thing you may see references
     to `git-backpan-init`, but this does not appear to be part of the
-    [Git::CPAN::Patch](http://search.cpan.org/perldoc?Git::CPAN::Patch) anymore (I believe `git-import` with the `--backpan`
+    [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) anymore (I believe `git-import` with the `--backpan`
     option is the equivalent).
 
 - [gitpan](https://github.com/gitpan)
