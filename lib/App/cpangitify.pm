@@ -16,6 +16,9 @@ use JSON qw( from_json );
 use URI;
 use PerlX::Maybe qw( maybe );
 use File::Copy::Recursive qw( rcopy );
+use File::Basename qw( basename );
+use Archive::Extract;
+use File::Spec;
 
 # ABSTRACT: Convert cpan distribution from BackPAN to a git repository
 # VERSION
@@ -123,7 +126,7 @@ sub main
     local $CWD = $tmp->stringify;
   
     my $uri = URI->new(join('/', $opt_backpan_url, $path));
-    say "fetch ...";
+    say "fetch ... $uri";
     my $res = $ua->get($uri);
     unless($res->is_success)
     {
@@ -133,14 +136,18 @@ sub main
     }
   
     do {
-      open my $fh, '>', "archive";
+      my $fn = basename $uri->path;
+    
+      open my $fh, '>', $fn;
       print $fh $res->decoded_content;
       close $fh;
-    };
+
+      say "unpack... $fn";
+      my $archive = Archive::Extract->new( archive => $fn );
+      $archive->extract( to => File::Spec->curdir ) || die $archive->error;
+      unlink $fn;
   
-    say "unpack...";
-    system 'tar', 'xf', 'archive';
-    unlink 'archive';
+    };
   
     my $source = do {
       my @children = map { $_->absolute } dir()->children;
