@@ -9,6 +9,7 @@ pod_spelling_system:
     - ggoosen
     - gitpan
     - cpangitify
+    - poney
 
 pod_coverage:
   # format is "Class#method" or "Class", regex allowed
