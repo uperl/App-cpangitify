@@ -38,9 +38,6 @@ Print out version and exit.
 
 # CAVEATS
 
-Currently only works on UNIX like operating systems with rm, cp and a tar which
-automatically decompresses compressed tars.
-
 Each commit belongs to the CPAN author who submitted the corresponding release,
 therefore `git blame` may not be that useful for the imported portion of
 your new repository history.
@@ -77,7 +74,7 @@ Here are some similar projects:
     option is the equivalent).
 
     In general `cpangitify` is a one trick poney (though good at that one thing),
-    and [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) is a batmans's utility belt with documentation that 
+    and [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) is a Batman's utility belt with documentation that 
     (for me at least) is pretty impenetrable.
 
 - [gitpan](https://github.com/gitpan)
