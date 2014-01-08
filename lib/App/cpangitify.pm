@@ -36,6 +36,18 @@ L<cpangitify>
 our $ua  = LWP::UserAgent->new;
 our $opt_metacpan_url;
 
+sub _rm_rf
+{
+  my($file) = @_;
+  
+  if($file->is_dir && ! -l $file)
+  {
+    _rm_rf($_) for $file->children;
+  }
+  
+  $file->remove || die "unable to delete $file";
+}
+
 sub main
 {
   my $class = shift;
@@ -165,7 +177,7 @@ sub main
     foreach my $child ($dest->children)
     {
       next if $child->basename eq '.git';
-      system 'rm', '-rf', $child;
+      _rm_rf($child);
     }
   
     foreach my $child ($source->children)

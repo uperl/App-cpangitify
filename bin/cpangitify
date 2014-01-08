@@ -45,9 +45,6 @@ Print out version and exit.
 
 =head1 CAVEATS
 
-Currently only works on UNIX like operating systems with rm, cp and a tar which
-automatically decompresses compressed tars.
-
 Each commit belongs to the CPAN author who submitted the corresponding release,
 therefore C<git blame> may not be that useful for the imported portion of
 your new repository history.
@@ -78,14 +75,18 @@ but without authors and without the correct dates):
  % git merge remotes/cpan/master
 
 One advantage here over C<cpangitify> is that you should then later be able to 
-import/merge future CPAN releases into yours.  C<Git::CPAN::Patch> also has a bunch of 
-other useful tools for creating and submitting patches and is definitely worth 
+import/merge future CPAN releases into yours.  L<Git::CPAN::Patch> also has a bunch of 
+other useful tools for creating and submitting patches and may be worth 
 checking out.
 
 If you do an internet search for this sort of thing you may see references
 to C<git-backpan-init>, but this does not appear to be part of the
 L<Git::CPAN::Patch> anymore (I believe C<git-import> with the C<--backpan>
 option is the equivalent).
+
+In general C<cpangitify> is a one trick poney (though good at that one thing),
+and L<Git::CPAN::Patch> is a Batman's utility belt with documentation that 
+(for me at least) is pretty impenetrable.
 
 =item
 

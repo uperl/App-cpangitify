@@ -67,14 +67,18 @@ Here are some similar projects:
         % git merge remotes/cpan/master
 
     One advantage here over `cpangitify` is that you should then later be able to 
-    import/merge future CPAN releases into yours.  `Git::CPAN::Patch` also has a bunch of 
-    other useful tools for creating and submitting patches and is definitely worth 
+    import/merge future CPAN releases into yours.  [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) also has a bunch of 
+    other useful tools for creating and submitting patches and may be worth 
     checking out.
 
     If you do an internet search for this sort of thing you may see references
     to `git-backpan-init`, but this does not appear to be part of the
     [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) anymore (I believe `git-import` with the `--backpan`
     option is the equivalent).
+
+    In general `cpangitify` is a one trick poney (though good at that one thing),
+    and [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) is a batmans's utility belt with documentation that 
+    (for me at least) is pretty impenetrable.
 
 - [gitpan](https://github.com/gitpan)
 
