@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.09      2014-06-19 16:05:18 -0400
+  - CPAN release (0.08 never made it to CPAN)
+
 0.08      2014-01-08 06:10:17 -0500
   - make multiple tags a warning only
   - install with Module::Build instead of MakeMaker
