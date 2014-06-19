@@ -28,11 +28,11 @@ history like this:
 
 # OPTIONS
 
-## \--help | -h
+## --help | -h
 
 Print out help and exit.
 
-## \--version
+## --version
 
 Print out version and exit.
 
