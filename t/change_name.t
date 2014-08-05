@@ -8,6 +8,8 @@ use Capture::Tiny qw( capture_merged );
 use File::chdir;
 use URI::file;
 use Path::Class qw( file dir );
+use lib 'inc';
+use Test::HTTPTinyFile;
 
 my $home = dir( File::HomeDir->my_home );
 

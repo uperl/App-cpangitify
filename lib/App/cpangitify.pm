@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use autodie qw( :system );
 use v5.10;
-use BackPAN::Index;
 use Getopt::Long qw( GetOptions );
 use Pod::Usage qw( pod2usage );
 use Path::Class qw( file dir );
@@ -19,6 +18,7 @@ use File::Copy::Recursive qw( rcopy );
 use File::Basename qw( basename );
 use Archive::Extract;
 use File::Spec;
+use CPAN::ReleaseHistory;
 
 # ABSTRACT: Convert cpan distribution from BackPAN to a git repository
 # VERSION
@@ -69,6 +69,7 @@ sub main
   ) || pod2usage(1);
 
   my @names = map { s/::/-/g; $_ } @ARGV;
+  my %names = map { $_ => 1 } @names;
   my $name = $names[0];
 
   pod2usage(1) unless $name;
@@ -82,12 +83,17 @@ sub main
   }
 
   say "creating/updating index...";
-  my $bpi = BackPAN::Index->new(
-    maybe backpan_index_url => $opt_backpan_index_url,
-  );
+  my $history = CPAN::ReleaseHistory->new(
+    maybe url => $opt_backpan_index_url
+  )->release_iterator;
 
   say "searching...";
-  my @rel = eval { $bpi->releases->search({ dist => \@names }, { order_by => 'date' }) };
+  my @rel;
+  while(my $release = $history->next_release)
+  {
+    next unless $names{$release->distinfo->dist};
+    push @rel, $release;
+  }
 
   if($@ || @rel == 0)
   {
@@ -127,9 +133,9 @@ sub main
   foreach my $rel (@rel)
   {
     my $path    = $rel->path;
-    my $version = $rel->version;
-    my $date    = $rel->date;
-    my $cpanid  = $rel->cpanid;
+    my $version = $rel->distinfo->version;
+    my $time    = $rel->timestamp;
+    my $cpanid  = $rel->distinfo->cpanid;
   
     say "$path [ $version ]";
   
@@ -197,7 +203,7 @@ sub main
     $git->rm($_->from) for grep { $_->mode eq 'deleted' } $git->status->get('changed');
     $git->commit({
       message => "version $version",
-      date    => "$date +0000",
+      date    => "$time +0000",
       author  => author $cpanid,
     });
     eval { $git->tag($version) };
