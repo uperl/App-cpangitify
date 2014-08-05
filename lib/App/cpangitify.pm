@@ -11,7 +11,7 @@ use Git::Wrapper;
 use File::Temp qw( tempdir );
 use LWP::UserAgent;
 use File::chdir;
-use JSON qw( from_json );
+use JSON::PP qw( decode_json );
 use URI;
 use PerlX::Maybe qw( maybe );
 use File::Copy::Recursive qw( rcopy );
@@ -124,7 +124,7 @@ sub main
         say $res->status_line;
         return 2;
       }
-      $cache->{$cpanid} = from_json($res->decoded_content)
+      $cache->{$cpanid} = decode_json($res->decoded_content)
     }
   
     sprintf "%s <%s>", $cache->{$cpanid}->{name}, $cache->{$cpanid}->{email}->[0];

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - use JSON::PP instead of JSON
+    the former being part of the core as of Perl 5.14
   - use CPAN::ReleaseHistory instead of BackPAN::Index
     the latter may (?) be faster,
     but the former has lighter set of prereqs

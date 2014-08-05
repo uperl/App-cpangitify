@@ -7,8 +7,7 @@ File::chdir
 Git::Wrapper
 HTTP::Date
 IPC::System::Simple
-JSON
-JSON::XS
+JSON::PP
 LWP::UserAgent
 Module::Build
 Path::Class
