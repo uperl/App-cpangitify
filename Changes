@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - use CPAN::ReleaseHistory instead of BackPAN::Index
+    the latter may (?) be faster,
+    but the former has lighter set of prereqs
 
 0.09      2014-06-19 16:05:18 -0400
   - CPAN release (0.08 never made it to CPAN)

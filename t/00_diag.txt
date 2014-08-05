@@ -1,10 +1,11 @@
 Archive::Extract
-BackPAN::Index
+CPAN::ReleaseHistory
 Capture::Tiny
 File::Copy::Recursive
 File::HomeDir
 File::chdir
 Git::Wrapper
+HTTP::Date
 IPC::System::Simple
 JSON
 JSON::XS

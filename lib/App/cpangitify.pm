@@ -54,7 +54,7 @@ sub main
   local @ARGV = @_;
   
   my $opt_backpan_index_url;
-  my $opt_backpan_url = "http://backpan.perl.org";
+  my $opt_backpan_url = "http://backpan.perl.org/authors/id";
   $opt_metacpan_url   = "http://api.metacpan.org/";
 
   GetOptions(
