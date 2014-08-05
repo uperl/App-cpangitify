@@ -6,9 +6,9 @@ File::HomeDir
 File::chdir
 Git::Wrapper
 HTTP::Date
+HTTP::Tiny
 IPC::System::Simple
 JSON::PP
-LWP::UserAgent
 Module::Build
 Path::Class
 PerlX::Maybe

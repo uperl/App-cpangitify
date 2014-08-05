@@ -1,7 +1,7 @@
 language: perl
 
 install:
-  - cpanm -n BackPAN::Index Path::Class Git::Wrapper File::Temp LWP::UserAgent File::chdir autodie JSON URI IPC::System::Simple PerlX::Maybe
+  - cpanm -n Path::Class Git::Wrapper File::Temp HTTP::Tiny File::chdir autodie JSON::PP URI IPC::System::Simple PerlX::Maybe CPAN::ReleaseHistory
 
 perl:
   - "5.10"

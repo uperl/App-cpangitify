@@ -9,7 +9,6 @@ use Pod::Usage qw( pod2usage );
 use Path::Class qw( file dir );
 use Git::Wrapper;
 use File::Temp qw( tempdir );
-use LWP::UserAgent;
 use File::chdir;
 use JSON::PP qw( decode_json );
 use URI;
@@ -19,6 +18,7 @@ use File::Basename qw( basename );
 use Archive::Extract;
 use File::Spec;
 use CPAN::ReleaseHistory;
+use HTTP::Tiny;
 
 # ABSTRACT: Convert cpan distribution from BackPAN to a git repository
 # VERSION
@@ -33,7 +33,7 @@ L<cpangitify>
 
 =cut
 
-our $ua  = LWP::UserAgent->new;
+our $ua  = HTTP::Tiny->new;
 our $opt_metacpan_url;
 
 sub _rm_rf
@@ -118,13 +118,13 @@ sub main
     {
       my $uri = URI->new($opt_metacpan_url . "v0/author/" . $cpanid);
       my $res = $ua->get($uri);
-      unless($res->is_success)
+      unless($res->{success})
       {
         say "error fetching $uri";
-        say $res->status_line;
+        say $res->{reason};
         return 2;
       }
-      $cache->{$cpanid} = decode_json($res->decoded_content)
+      $cache->{$cpanid} = decode_json($res->{content})
     }
   
     sprintf "%s <%s>", $cache->{$cpanid}->{name}, $cache->{$cpanid}->{email}->[0];
@@ -146,10 +146,10 @@ sub main
     my $uri = URI->new(join('/', $opt_backpan_url, $path));
     say "fetch ... $uri";
     my $res = $ua->get($uri);
-    unless($res->is_success)
+    unless($res->{success})
     {
       say "error fetching $uri";
-      say $res->status_line;
+      say $res->{reason};
       return 2;
     }
   
@@ -157,7 +157,8 @@ sub main
       my $fn = basename $uri->path;
     
       open my $fh, '>', $fn;
-      print $fh $res->decoded_content;
+      binmode $fh;
+      print $fh $res->{content};
       close $fh;
 
       say "unpack... $fn";
