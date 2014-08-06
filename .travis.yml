@@ -1,8 +1,7 @@
 language: perl
 
 install:
-  - cpanm App::cpanminus
-  - cpanm git@github.com:plicease/PerlIO-gzip.git@Perl_520
+  - curl -L http://cpanmin.us | perl - git@github.com:plicease/PerlIO-gzip.git@Perl_520
   - cpanm -n Path::Class Git::Wrapper File::Temp HTTP::Tiny File::chdir autodie JSON::PP URI IPC::System::Simple PerlX::Maybe CPAN::ReleaseHistory
 
 perl:
