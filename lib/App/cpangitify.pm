@@ -200,8 +200,8 @@ sub main
     }
   
     say "commit and tag...";
-    $git->add('--ignore-removal', '.');
     $git->rm($_->from) for grep { $_->mode eq 'deleted' } $git->status->get('changed');
+    $git->add('.');
     $git->commit({
       message => "version $version",
       date    => "$time +0000",

@@ -1,8 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-  - use --ignore-removal for git add
-    This seems to help on MSWin32
+  - 'git rm' before 'git add'
+    This seems to help on MSWin32, where I may have a newer version of git than on Debian Linux
 
 0.10      2014-08-05 13:22:41 -0400
   - use HTTP::Tiny instead of LWP
