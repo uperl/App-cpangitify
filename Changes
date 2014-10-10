@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.11      2014-10-10 11:41:51 -0400
   - 'git rm' before 'git add'
     This seems to help on MSWin32, where I may have a newer version of git than on Debian Linux
 
