@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - use --ignore-removal for git add
+    This seems to help on MSWin32
 
 0.10      2014-08-05 13:22:41 -0400
   - use HTTP::Tiny instead of LWP
