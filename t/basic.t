@@ -13,6 +13,8 @@ use Test::HTTPTinyFile;
 
 my $home = dir( File::HomeDir->my_home );
 
+note "home = $home";
+
 do {
   my $dir = $home->subdir('foo');
   $dir->mkpath(0,0700);
@@ -24,6 +26,7 @@ do {
 
 do {
   my $uri = URI::file->new(file(__FILE__)->parent->absolute->stringify);
+  $uri->host('localhost');
   
   local $CWD = "$home";
   my $ret;

@@ -23,6 +23,7 @@ my $request_wrapper = sub
   {
     tie my %headers, 'Test::HTTPTinyFile::ResponseHeaderTie';
     my $path = $uri->path;
+    $path =~ s{^/([A-Za-z]:)}{$1} if $^O eq 'MSWin32';
     my $result = { url => $url, content => '', headers => \%headers }; # TODO include some headers
     my $content = '';
     

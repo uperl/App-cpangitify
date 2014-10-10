@@ -24,6 +24,7 @@ do {
 
 do {
   my $uri = URI::file->new(file(__FILE__)->parent->absolute->stringify);
+  $uri->host('localhost');
   
   local $CWD = "$home";
   my $ret;
