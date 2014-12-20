@@ -1,12 +1,15 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.12      2014-12-20 05:27:19 -0500
   - added --trace option
   - added --output | -o option
   - added --resume option
   - added --skip optio
   - fixes for empty commits (two sequential releases that are identical) (GH#8)
   - fixes for filenames with non ASCII characters (GH#8)
+  - do not import .git directory from tarballs
   - documented some previously undocumented options
 
 0.11      2014-10-10 11:41:51 -0400
