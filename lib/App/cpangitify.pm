@@ -85,6 +85,7 @@ sub main
   local *Git::Wrapper::RUN = \&_run_wrapper;
   use warnings;
   
+  my %skip;
   my $opt_backpan_index_url;
   my $opt_backpan_url = "http://backpan.perl.org/authors/id";
   $opt_metacpan_url   = "http://api.metacpan.org/";
@@ -97,6 +98,7 @@ sub main
     'backpan_url=s'       => \$opt_backpan_url,
     'metacpan_url=s'      => \$opt_metacpan_url,
     'trace'               => \$opt_trace,
+    'skip=s'              => sub { $skip{$_} = 1 for split /,/, $_[1] },
     'resume'              => \$opt_resume,
     'output|o=s'          => \$opt_output,
     'help|h'              => sub { pod2usage({ -verbose => 2}) },
@@ -148,9 +150,6 @@ sub main
 
   my $git = Git::Wrapper->new($dest->stringify);
 
-  my %skip;
-
-  $DB::single = 1;
   if($opt_resume)
   {
     if($git->status->is_dirty)

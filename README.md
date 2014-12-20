@@ -28,6 +28,36 @@ history like this:
 
 # OPTIONS
 
+## --resume
+
+Resume the cpangitification.  Note that any local changes will be overwritten
+by the CPAN upstream (your modifications will remain in the repository history).
+
+## --output | -o _directory_
+
+Creat the new repository in the given directory.
+
+## --skip _version_
+
+Skip the given versions.  Can be specified multiple times and can
+be provided as a comma separated list.
+
+## --trace
+
+Print each git command before it is executed.
+
+## --backpan\_index\_url
+
+The URL to use for the backpan index
+
+## --backpan\_url
+
+The URL to use for backpan
+
+## --metacpan\_url
+
+The URL to use for metacpan.
+
 ## --help | -h
 
 Print out help and exit.

@@ -44,6 +44,11 @@ by the CPAN upstream (your modifications will remain in the repository history).
 
 Creat the new repository in the given directory.
 
+=head2 --skip I<version>
+
+Skip the given versions.  Can be specified multiple times and can
+be provided as a comma separated list.
+
 =head2 --trace
 
 Print each git command before it is executed.

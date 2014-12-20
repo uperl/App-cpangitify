@@ -4,6 +4,7 @@ Revision history for {{$dist->name}}
   - added --trace option
   - added --output | -o option
   - added --resume option
+  - added --skip optio
   - fixes for empty commits (two sequential releases that are identical) (GH#8)
   - fixes for filenames with non ASCII characters (GH#8)
   - documented some previously undocumented options
