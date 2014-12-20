@@ -30,7 +30,7 @@ history like this:
 
 ## --resume
 
-Resume the cpangitification.  Note that any local changes will be overwritten
+Resume the import from CPAN.  Note that any local changes will be overwritten
 by the CPAN upstream (your modifications will remain in the repository history).
 
 ## --output | -o _directory_
@@ -48,11 +48,11 @@ Print each git command before it is executed.
 
 ## --backpan\_index\_url
 
-The URL to use for the backpan index
+The URL to use for the BackPAN index
 
 ## --backpan\_url
 
-The URL to use for backpan
+The URL to use for BackPAN
 
 ## --metacpan\_url
 
