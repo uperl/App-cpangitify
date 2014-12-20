@@ -63,7 +63,8 @@ sub _run_wrapper
       while(my($k,$v) = each %$arg)
       {
         push @display, "--$k";
-        push @display, $v =~ /\s/ ? "'$v'" : $v;
+        push @display, $v =~ /\s/ ? "'$v'" : $v
+          if $v ne '1'; # yes there is a weird exception for this :P
       }
     }
     else
@@ -238,8 +239,8 @@ sub main
     }
   
     say "commit and tag...";
-    $git->rm($_->from) for grep { $_->mode eq 'deleted' } $git->status->get('changed');
     $git->add('.');
+    $git->add('-u');
     $git->commit({
       message       => "version $version",
       date          => "$time +0000",
