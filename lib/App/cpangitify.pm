@@ -90,12 +90,14 @@ sub main
   $opt_metacpan_url   = "http://api.metacpan.org/";
   my $opt_trace = 0;
   my $opt_output;
+  my $opt_resume;
 
   GetOptions(
     'backpan_index_url=s' => \$opt_backpan_index_url,
     'backpan_url=s'       => \$opt_backpan_url,
     'metacpan_url=s'      => \$opt_metacpan_url,
     'trace'               => \$opt_trace,
+    'resume'              => \$opt_resume,
     'output|o=s'          => \$opt_output,
     'help|h'              => sub { pod2usage({ -verbose => 2}) },
     'version'             => sub {
@@ -114,9 +116,11 @@ sub main
 
   my $dest = $opt_output ? dir($opt_output)->absolute : dir()->absolute->subdir($name);
 
-  if(-e $dest)
+  if(-e $dest && ! $opt_resume)
   {
     say "already exists: $dest";
+    say "you may be able to update with the --resume option";
+    say "but any local changes to your repository will be overwritten by upstream";
     return 2;
   }
 
@@ -144,7 +148,21 @@ sub main
 
   my $git = Git::Wrapper->new($dest->stringify);
 
-  $git->init;
+  my %skip;
+
+  $DB::single = 1;
+  if($opt_resume)
+  {
+    if($git->status->is_dirty)
+    {
+      die "the appear to be uncommited changes";
+    }
+    $skip{$_} = 1 for $git->tag;
+  }
+  else
+  {
+    $git->init;
+  }
 
   sub author($)
   {
@@ -176,6 +194,12 @@ sub main
     my $cpanid  = $rel->distinfo->cpanid;
   
     say "$path [ $version ]";
+    
+    if($skip{$version})
+    {
+      say "skipping ...";
+      next;
+    }
   
     my $tmp = dir( tempdir( CLEANUP => 1 ) );
   

@@ -35,6 +35,11 @@ history like this:
 
 =head1 OPTIONS
 
+=head2 --resume
+
+Resume the cpangitification.  Note that any local changes will be overwritten
+by the CPAN upstream (your modifications will remain in the repository history).
+
 =head2 --output | -o I<directory>
 
 Creat the new repository in the given directory.
