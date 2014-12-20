@@ -35,6 +35,22 @@ history like this:
 
 =head1 OPTIONS
 
+=head2 --backpan_index_url
+
+The URL to use for the backpan index
+
+=head2 --backpan_url
+
+The URL to use for backpan
+
+=head2 --metacpan_url
+
+The URL to use for metacpan.
+
+=head2 --trace
+
+Print each git command before it is executed.
+
 =head2 --help | -h
 
 Print out help and exit.

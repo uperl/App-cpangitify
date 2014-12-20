@@ -10,6 +10,12 @@ use URI::file;
 use Path::Class qw( file dir );
 use lib 'inc';
 use Test::HTTPTinyFile;
+use Git::Wrapper;
+
+$App::cpangitify::_run_cb = sub {
+  my($git, @command) = @_;
+  diag "+ git @command";
+};
 
 my $home = dir( File::HomeDir->my_home );
 

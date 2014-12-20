@@ -48,25 +48,46 @@ sub _rm_rf
   $file->remove || die "unable to delete $file";
 }
 
+our $_run_cb = sub {};
+our $original_run = \&Git::Wrapper::RUN;
+our $ignore_error = 0;
+our $trace = 0;
+sub _run_wrapper
+{
+  my($self,@command) = @_;
+  my @display = map { ref($_) eq 'HASH' ? (%$_) : $_ } @command;
+  $_run_cb->($self, @display);
+  if($trace)
+  {
+    say "+ git @display";
+  }
+  $original_run->($self, @command);
+}
+
 sub main
 {
   my $class = shift;
   local @ARGV = @_;
+  local *Git::Wrapper::RUN = \&_run_wrapper;
   
   my $opt_backpan_index_url;
   my $opt_backpan_url = "http://backpan.perl.org/authors/id";
   $opt_metacpan_url   = "http://api.metacpan.org/";
+  my $opt_trace = 0;
 
   GetOptions(
     'backpan_index_url=s' => \$opt_backpan_index_url,
     'backpan_url=s'       => \$opt_backpan_url,
     'metacpan_url=s'      => \$opt_metacpan_url,
+    'trace'               => \$opt_trace,
     'help|h'              => sub { pod2usage({ -verbose => 2}) },
     'version'             => sub {
       say 'cpangitify version ', ($App::cpangitify::VERSION // 'dev');
       exit 1;
     },
   ) || pod2usage(1);
+
+  local $trace = $opt_trace;
 
   my @names = map { s/::/-/g; $_ } @ARGV;
   my %names = map { $_ => 1 } @names;
@@ -207,7 +228,7 @@ sub main
       date    => "$time +0000",
       author  => author $cpanid,
     });
-    eval { $git->tag($version) };
+    eval { local $ignore_error = 1; $git->tag($version) };
     warn $@ if $@;
   }
   

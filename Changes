@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - added --trace option
 
 0.11      2014-10-10 11:41:51 -0400
   - 'git rm' before 'git add'
