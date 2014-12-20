@@ -3,7 +3,7 @@ package App::cpangitify;
 use strict;
 use warnings;
 use autodie qw( :system );
-use v5.10;
+use 5.010001;
 use Getopt::Long qw( GetOptions );
 use Pod::Usage qw( pod2usage );
 use Path::Class qw( file dir );

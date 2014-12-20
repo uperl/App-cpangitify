@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use v5.10;
+use 5.010001;
 use Path::Class qw( file dir );
 
 my $root = file(__FILE__)->parent->subdir(qw( authors id L LO LOCAL ));
