@@ -55,7 +55,22 @@ our $trace = 0;
 sub _run_wrapper
 {
   my($self,@command) = @_;
-  my @display = map { ref($_) eq 'HASH' ? (%$_) : $_ } @command;
+  my @display;
+  foreach my $arg (@command)
+  {
+    if(ref($arg) eq 'HASH')
+    {
+      while(my($k,$v) = each %$arg)
+      {
+        push @display, "--$k";
+        push @display, $v =~ /\s/ ? "'$v'" : $v;
+      }
+    }
+    else
+    {
+      push @display, $arg;
+    }
+  }
   $_run_cb->($self, @display);
   if($trace)
   {
@@ -68,7 +83,9 @@ sub main
 {
   my $class = shift;
   local @ARGV = @_;
+  no warnings 'redefine';
   local *Git::Wrapper::RUN = \&_run_wrapper;
+  use warnings;
   
   my $opt_backpan_index_url;
   my $opt_backpan_url = "http://backpan.perl.org/authors/id";
@@ -224,9 +241,10 @@ sub main
     $git->rm($_->from) for grep { $_->mode eq 'deleted' } $git->status->get('changed');
     $git->add('.');
     $git->commit({
-      message => "version $version",
-      date    => "$time +0000",
-      author  => author $cpanid,
+      message       => "version $version",
+      date          => "$time +0000",
+      author        => author $cpanid,
+      'allow-empty' => 1,
     });
     eval { local $ignore_error = 1; $git->tag($version) };
     warn $@ if $@;
