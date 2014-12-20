@@ -73,10 +73,7 @@ sub _run_wrapper
     }
   }
   $_run_cb->($self, @display);
-  if($trace)
-  {
-    say "+ git @display";
-  }
+  say "+ git @display" if $trace;
   $original_run->($self, @command);
 }
 
@@ -204,7 +201,10 @@ sub main
       my $archive = Archive::Extract->new( archive => $fn );
       $archive->extract( to => File::Spec->curdir ) || die $archive->error;
       unlink $fn;
-  
+      if($trace)
+      {
+        say "- extract $fn $_" for @{ $archive->files };
+      }
     };
   
     my $source = do {
@@ -228,6 +228,7 @@ sub main
   
     foreach my $child ($source->children)
     {
+      next if $child->basename eq '.git';
       if(-d  $child)
       {
         rcopy($child, $dest->subdir($child->basename)) || die "unable to copy $child $!";
