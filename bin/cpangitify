@@ -35,6 +35,14 @@ history like this:
 
 =head1 OPTIONS
 
+=head2 --output | -o I<directory>
+
+Creat the new repository in the given directory.
+
+=head2 --trace
+
+Print each git command before it is executed.
+
 =head2 --backpan_index_url
 
 The URL to use for the backpan index
@@ -46,10 +54,6 @@ The URL to use for backpan
 =head2 --metacpan_url
 
 The URL to use for metacpan.
-
-=head2 --trace
-
-Print each git command before it is executed.
 
 =head2 --help | -h
 

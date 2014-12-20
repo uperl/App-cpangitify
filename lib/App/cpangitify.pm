@@ -89,12 +89,14 @@ sub main
   my $opt_backpan_url = "http://backpan.perl.org/authors/id";
   $opt_metacpan_url   = "http://api.metacpan.org/";
   my $opt_trace = 0;
+  my $opt_output;
 
   GetOptions(
     'backpan_index_url=s' => \$opt_backpan_index_url,
     'backpan_url=s'       => \$opt_backpan_url,
     'metacpan_url=s'      => \$opt_metacpan_url,
     'trace'               => \$opt_trace,
+    'output|o=s'          => \$opt_output,
     'help|h'              => sub { pod2usage({ -verbose => 2}) },
     'version'             => sub {
       say 'cpangitify version ', ($App::cpangitify::VERSION // 'dev');
@@ -110,7 +112,7 @@ sub main
 
   pod2usage(1) unless $name;
 
-  my $dest = dir()->absolute->subdir($name);
+  my $dest = $opt_output ? dir($opt_output)->absolute : dir()->absolute->subdir($name);
 
   if(-e $dest)
   {
