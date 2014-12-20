@@ -17,4 +17,3 @@ Sort::Versions
 Test::More
 URI
 URI::file
-autodie
