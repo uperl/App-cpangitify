@@ -1,7 +1,7 @@
 language: perl
 
 install:
-  - curl -L http://cpanmin.us | perl - git@github.com:plicease/PerlIO-gzip.git@Perl_520
+  - cpanm -n PerlIO::gzip
   - cpanm -n Path::Class Git::Wrapper File::Temp HTTP::Tiny File::chdir autodie JSON::PP URI IPC::System::Simple PerlX::Maybe CPAN::ReleaseHistory
 
 perl:
@@ -10,11 +10,5 @@ perl:
   - "5.14"
   - "5.16"
   - "5.18"
-  - "5.20"
-  - "5.21"
-
-#before_script: /bin/true
 
 script: HARNESS_IS_VERBOSE=1 prove -lv t xt
-
-#after_script: /bin/true
