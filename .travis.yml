@@ -1,8 +1,9 @@
 language: perl
 
+sudo: false
+
 install:
-  - cpanm -n PerlIO::gzip
-  - cpanm -n Path::Class Git::Wrapper File::Temp HTTP::Tiny File::chdir autodie JSON::PP URI IPC::System::Simple PerlX::Maybe CPAN::ReleaseHistory
+  - cpanm -n PerlIO::gzip Path::Class Git::Wrapper File::Temp HTTP::Tiny File::chdir autodie JSON::PP URI IPC::System::Simple PerlX::Maybe CPAN::ReleaseHistory
 
 perl:
   - "5.10"
@@ -10,5 +11,7 @@ perl:
   - "5.14"
   - "5.16"
   - "5.18"
+  - "5.20"
 
-script: HARNESS_IS_VERBOSE=1 prove -lv t xt
+script:
+  - HARNESS_IS_VERBOSE=1 prove -lv t xt
