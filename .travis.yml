@@ -4,6 +4,7 @@ sudo: false
 
 install:
   - cpanm -n PerlIO::gzip Path::Class Git::Wrapper File::Temp HTTP::Tiny File::chdir autodie JSON::PP URI IPC::System::Simple PerlX::Maybe CPAN::ReleaseHistory
+  - cpanm -n Archive::Extract
 
 perl:
   - "5.10"
