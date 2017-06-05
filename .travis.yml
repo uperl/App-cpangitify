@@ -16,4 +16,4 @@ perl:
   - "5.26"
 
 script:
-  - HARNESS_IS_VERBOSE=1 prove -lv t xt
+  - HARNESS_IS_VERBOSE=1 prove -lv t 
