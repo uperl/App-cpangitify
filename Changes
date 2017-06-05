@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Use v1 metacpan API (GH#9)
 
 0.12      2014-12-20 05:27:19 -0500
   - added --trace option

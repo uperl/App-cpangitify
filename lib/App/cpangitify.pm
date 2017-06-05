@@ -88,7 +88,7 @@ sub main
   my %skip;
   my $opt_backpan_index_url;
   my $opt_backpan_url = "http://backpan.perl.org/authors/id";
-  $opt_metacpan_url   = "http://api.metacpan.org/";
+  $opt_metacpan_url   = "http://fastapi.metacpan.org/";
   my $opt_trace = 0;
   my $opt_output;
   my $opt_resume;
@@ -171,7 +171,7 @@ sub main
   
     unless(defined $cache->{$cpanid})
     {
-      my $uri = URI->new($opt_metacpan_url . "v0/author/" . $cpanid);
+      my $uri = URI->new($opt_metacpan_url . "v1/author/" . $cpanid);
       my $res = $ua->get($uri);
       unless($res->{success})
       {
