@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.16      2017-07-23 06:54:53 -0400
+  - Remove broken link to no longer existing module
+
 0.15      2017-07-22 22:37:59 -0400
   - Remove dependency on File::HomeDir
 
