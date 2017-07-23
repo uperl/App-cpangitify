@@ -28,7 +28,7 @@ If the distribution you are migrating changed names during its history,
 simply specify each name it had on the command line.  Be sure to specify
 the current name first (this will be used when creating a directory name
 for the repository).  For example L<Mojolicious::Plugin::TtRenderer> was
-once called L<MojoX::Renderer::TT>, so you would get both names in the
+once called C<MojoX::Renderer::TT>, so you would get both names in the
 history like this:
 
  % cpangitify Mojolicious::Plugin::TtRenderer MojoX::Renderer::TT
