@@ -21,7 +21,7 @@ If the distribution you are migrating changed names during its history,
 simply specify each name it had on the command line.  Be sure to specify
 the current name first (this will be used when creating a directory name
 for the repository).  For example [Mojolicious::Plugin::TtRenderer](https://metacpan.org/pod/Mojolicious::Plugin::TtRenderer) was
-once called [MojoX::Renderer::TT](https://metacpan.org/pod/MojoX::Renderer::TT), so you would get both names in the
+once called `MojoX::Renderer::TT`, so you would get both names in the
 history like this:
 
     % cpangitify Mojolicious::Plugin::TtRenderer MojoX::Renderer::TT
@@ -119,7 +119,11 @@ or two distributions here and there.
 
 # AUTHOR
 
-Graham Ollis <plicease@cpan.org>
+Author: Graham Ollis <plicease@cpan.org>
+
+Contributors:
+
+Mohammad S Anwar (MANWAR)
 
 # COPYRIGHT AND LICENSE
 
