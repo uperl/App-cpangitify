@@ -1,8 +1,9 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 use strict;
 use warnings;
 use 5.010001;
+use lib::findbin '../lib'; # dev-only
 use App::cpangitify;
 
 # PODNAME: cpangitify

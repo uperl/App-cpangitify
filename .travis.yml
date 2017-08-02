@@ -3,8 +3,10 @@ language: perl
 sudo: false
 
 install:
-  - cpanm -n PerlIO::gzip Path::Class Git::Wrapper File::Temp HTTP::Tiny File::chdir autodie JSON::PP URI IPC::System::Simple PerlX::Maybe CPAN::ReleaseHistory
-  - cpanm -n Archive::Extract Test2::Plugin::FauxHomeDir
+  - perlbrew list
+  - ./maint/travis-install-mods
+  - dzil authordeps --missing | cpanm -n
+  - dzil listdeps   --missing | cpanm -n
 
 perl:
   - "5.14"
@@ -16,4 +18,4 @@ perl:
   - "5.26"
 
 script:
-  - HARNESS_IS_VERBOSE=1 prove -lv t 
+  - dzil test -v
