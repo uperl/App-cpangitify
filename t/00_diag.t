@@ -13,6 +13,7 @@ $modules{$_} = $_ for qw(
   Archive::Extract
   CPAN::ReleaseHistory
   Capture::Tiny
+  ExtUtils::MakeMaker
   File::Copy::Recursive
   File::chdir
   Git::Wrapper
@@ -20,7 +21,6 @@ $modules{$_} = $_ for qw(
   HTTP::Tiny
   IPC::System::Simple
   JSON::PP
-  Module::Build
   Path::Class
   PerlX::Maybe
   PerlX::Maybe::XS
