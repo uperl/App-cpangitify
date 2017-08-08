@@ -135,6 +135,7 @@ sub main
   my @rel;
   while(my $release = $history->next_release)
   {
+    next unless defined $release->distinfo->dist;
     next unless $names{$release->distinfo->dist};
     push @rel, $release;
   }
