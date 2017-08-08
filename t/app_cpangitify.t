@@ -1,3 +1,4 @@
+use lib 't/lib';
 use strict;
 use warnings;
 use Test2::Plugin::FauxHomeDir;
@@ -8,7 +9,6 @@ use Capture::Tiny qw( capture_merged );
 use File::chdir;
 use URI::file;
 use Path::Class qw( file dir );
-use lib 'inc';
 use Test::HTTPTinyFile;
 use Git::Wrapper;
 
@@ -31,7 +31,7 @@ do {
 };
 
 do {
-  my $uri = URI::file->new(file(__FILE__)->parent->absolute->stringify);
+  my $uri = URI::file->new(file(__FILE__)->parent->parent->subdir('corpus')->absolute->stringify);
   $uri->host('localhost');
   
   local $CWD = "$home";
