@@ -182,7 +182,9 @@ sub main
       $cache->{$cpanid} = decode_json($res->{content})
     }
   
-    sprintf "%s <%s>", $cache->{$cpanid}->{name}, $cache->{$cpanid}->{email}->[0];
+    my $email = $cache->{$cpanid}->{email};
+    $email = $email->[0] if ref($email) eq 'ARRAY';
+    sprintf "%s <%s>", $cache->{$cpanid}->{name}, $email;
   }
 
   foreach my $rel (@rel)
