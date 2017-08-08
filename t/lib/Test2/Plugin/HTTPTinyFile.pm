@@ -1,15 +1,13 @@
-package Test::HTTPTinyFile;
+package Test2::Plugin::HTTPTinyFile;
 
 use strict;
 use warnings;
 use HTTP::Tiny;
 use HTTP::Date qw( time2str );
 use URI;
-use Test::More ();
+use Test2::API qw( context );
 
 my $request_method = \&HTTP::Tiny::request;
-
-BEGIN { *note = \&Test::More::note }
 
 my $request_wrapper = sub
 {
@@ -17,7 +15,9 @@ my $request_wrapper = sub
   my($self, $method, $url, $args) = @_;
   my $uri = URI->new($url);
   
-  note "HTTP::Tiny $method $url";
+  my $ctx = context();
+  $ctx->note("HTTP::Tiny $method $url");
+  
   
   if($uri->scheme eq 'file')
   {
@@ -89,7 +89,7 @@ my $request_wrapper = sub
     {
       die "unknown HTTP method: $method";
     }
-    note "HTTP::Tiny ", join(' ', $result->{success}, $result->{status}, $result->{reason});
+    $ctx->note("HTTP::Tiny ", join(' ', $result->{success}, $result->{status}, $result->{reason}));
     if($args->{data_callback})
     {
       $args->{data_callback}->($content, $result);
@@ -98,6 +98,7 @@ my $request_wrapper = sub
     {
       $result->{content} = $content;
     }
+    $ctx->release;
     return $result;
   }
   else
@@ -111,7 +112,7 @@ do { no warnings; *HTTP::Tiny::request = $request_wrapper };
 package
   Test::HTTPTinyFile::ResponseHeaderTie;
 
-BEGIN { *note = \&Test::More::note }
+use Test2::API qw( context );
 
 sub TIEHASH
 {
@@ -122,69 +123,83 @@ sub TIEHASH
 sub FETCH
 {
   my($self, $key) = @_;
-  note "header FETCH $key";
+  my $ctx = context();
+  $ctx->note("header FETCH $key");
+  $ctx->release;
   $self->{$key};
 }
 
 sub STORE
 {
   my($self, $key, $value) = @_;
-  note "header STORE $key $value";
+  my $ctx = context();
+  $ctx->note("header STORE $key $value");
+  $ctx->release;
   $self->{$key} = $value;
 }
 
 sub DELETE
 {
   my($self, $key) = @_;
-  note "header DELETE $key";
+  my $ctx = context();
+  $ctx->note("header DELETE $key");
+  $ctx->release;
   delete $self->{$key};
 }
 
 sub CLEAR
 {
   my($self) = @_;
-  note "header CLEAR";
+  my $ctx = context();
+  $ctx->note("header CLEAR");
+  $ctx->release;
   %$self = ();
 }
 
 sub EXISTS
 {
   my($self, $key) = @_;
-  note "header EXISTS $key";
+  my $ctx = context();
+  $ctx->note("header EXISTS $key");
+  $ctx->release;
   exists $self->{$key};
 }
 
 sub FIRSTKEY
 {
   my($self) = @_;
-  note "header FIRSTKEY";
   die "TODO";
 }
 
 sub NEXTKEY
 {
   my($self, $lastkey) = @_;
-  note "header NEXTKEY $lastkey";
   die "TODO";
 }
 
 sub SCALAR
 {
   my($self) = @_;
-  note "header SCALAR";
+  my $ctx = context();
+  $ctx->note("header SCALAR");
+  $ctx->release;
   scalar %$self;
 }
 
 sub DESTROY
 {
   my($self) = @_;
-  note "header DESTROY";
+  my $ctx = context();
+  $ctx->note("header DESTROY");
+  $ctx->release;
 }
 
 sub UNTIE
 {
   my($self) = @_;
-  note "header UNTIE";
+  my $ctx = context();
+  $ctx->note("header UNTIE");
+  $ctx->release;
 }
 
 1;
