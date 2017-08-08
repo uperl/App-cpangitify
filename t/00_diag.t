@@ -31,7 +31,10 @@ $modules{$_} = $_ for qw(
   URI::file
 );
 
-
+$post_diag = sub {
+  require Git::Wrapper;
+  diag "git version = ", Git::Wrapper->new('.')->version;
+};
 
 my @modules = sort keys %modules;
 
