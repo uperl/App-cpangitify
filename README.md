@@ -1,4 +1,4 @@
-# cpangitify ![linux](https://github.com/uperl/App-cpangitify/workflows/linux/badge.svg) ![macos](https://github.com/uperl/App-cpangitify/workflows/macos/badge.svg)
+# cpangitify ![linux](https://github.com/uperl/App-cpangitify/workflows/linux/badge.svg) ![macos](https://github.com/uperl/App-cpangitify/workflows/macos/badge.svg) ![windows](https://github.com/uperl/App-cpangitify/workflows/windows/badge.svg) ![cygwin](https://github.com/uperl/App-cpangitify/workflows/cygwin/badge.svg) ![msys2-mingw](https://github.com/uperl/App-cpangitify/workflows/msys2-mingw/badge.svg)
 
 Convert cpan distribution from BackPAN to a git repository
 
