@@ -88,7 +88,7 @@ Here are some similar projects:
 
 - [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch)
 
-    Comes with a `git cpan import` which does something similar.  With this 
+    Comes with a `git cpan import` which does something similar.  With this
     incantation I was able to get a repository for [YAML](https://metacpan.org/pod/YAML) (including history,
     but without authors and without the correct dates):
 
@@ -99,9 +99,9 @@ Here are some similar projects:
     % git merge remotes/cpan/master
     ```
 
-    One advantage here over `cpangitify` is that you should then later be able to 
-    import/merge future CPAN releases into yours.  [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) also has a bunch of 
-    other useful tools for creating and submitting patches and may be worth 
+    One advantage here over `cpangitify` is that you should then later be able to
+    import/merge future CPAN releases into yours.  [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) also has a bunch of
+    other useful tools for creating and submitting patches and may be worth
     checking out.
 
     If you do an internet search for this sort of thing you may see references
@@ -110,7 +110,7 @@ Here are some similar projects:
     option is the equivalent).
 
     In general `cpangitify` is a one trick poney (though good at that one thing),
-    and [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) is a Batman's utility belt with documentation that 
+    and [Git::CPAN::Patch](https://metacpan.org/pod/Git::CPAN::Patch) is a Batman's utility belt with documentation that
     (for me at least) is pretty impenetrable.
 
 - [gitpan](https://github.com/gitpan)
@@ -119,8 +119,8 @@ Here are some similar projects:
 
 - [ggoosen's cpan2git](https://github.com/ggoossen/cpan2git)
 
-The reason I am not using the latter two is that they are designed to 
-mirror the whole of CPAN/BackPAN, but I'm mostly just interested in one 
+The reason I am not using the latter two is that they are designed to
+mirror the whole of CPAN/BackPAN, but I'm mostly just interested in one
 or two distributions here and there.
 
 # AUTHOR

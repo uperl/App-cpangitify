@@ -39,12 +39,12 @@ our $opt_metacpan_url;
 sub _rm_rf
 {
   my($file) = @_;
-  
+
   if($file->is_dir && ! -l $file)
   {
     _rm_rf($_) for $file->children;
   }
-  
+
   $file->remove || die "unable to delete $file";
 }
 
@@ -60,8 +60,9 @@ sub _run_wrapper
   {
     if(ref($arg) eq 'HASH')
     {
-      while(my($k,$v) = each %$arg)
+      foreach my $k (keys %$arg)
       {
+        my $v = $arg->{$k};
         push @display, "--$k";
         push @display, $v =~ /\s/ ? "'$v'" : $v
           if $v ne '1'; # yes there is a weird exception for this :P
@@ -77,6 +78,30 @@ sub _run_wrapper
   $original_run->($self, @command);
 }
 
+sub author($)
+{
+  state $cache = {};
+
+  my $cpanid = shift;
+
+  unless(defined $cache->{$cpanid})
+  {
+    my $uri = URI->new($opt_metacpan_url . "v1/author/" . $cpanid);
+    my $res = $ua->get($uri);
+    unless($res->{success})
+    {
+      say "error fetching $uri";
+      say $res->{reason};
+      return 2;
+    }
+    $cache->{$cpanid} = decode_json($res->{content})
+  }
+
+  my $email = $cache->{$cpanid}->{email};
+  $email = $email->[0] if ref($email) eq 'ARRAY';
+  sprintf "%s <%s>", $cache->{$cpanid}->{name}, $email;
+}
+
 sub main
 {
   my $class = shift;
@@ -84,7 +109,7 @@ sub main
   no warnings 'redefine';
   local *Git::Wrapper::RUN = \&_run_wrapper;
   use warnings;
-  
+
   my %skip;
   my $opt_backpan_index_url;
   my $opt_backpan_url = "http://backpan.perl.org/authors/id";
@@ -110,7 +135,8 @@ sub main
 
   local $trace = $opt_trace;
 
-  my @names = map { s/::/-/g; $_ } @ARGV;
+  my @names = @ARGV;
+  s/::/-/g for @names;
   my %names = map { $_ => 1 } @names;
   my $name = $names[0];
 
@@ -164,49 +190,25 @@ sub main
     $git->init;
   }
 
-  sub author($)
-  {
-    state $cache = {};
-  
-    my $cpanid = shift;
-  
-    unless(defined $cache->{$cpanid})
-    {
-      my $uri = URI->new($opt_metacpan_url . "v1/author/" . $cpanid);
-      my $res = $ua->get($uri);
-      unless($res->{success})
-      {
-        say "error fetching $uri";
-        say $res->{reason};
-        return 2;
-      }
-      $cache->{$cpanid} = decode_json($res->{content})
-    }
-  
-    my $email = $cache->{$cpanid}->{email};
-    $email = $email->[0] if ref($email) eq 'ARRAY';
-    sprintf "%s <%s>", $cache->{$cpanid}->{name}, $email;
-  }
-
   foreach my $rel (@rel)
   {
     my $path    = $rel->path;
     my $version = $rel->distinfo->version;
     my $time    = $rel->timestamp;
     my $cpanid  = $rel->distinfo->cpanid;
-  
+
     say "$path [ $version ]";
-    
+
     if($skip{$version})
     {
       say "skipping ...";
       next;
     }
-  
+
     my $tmp = dir( tempdir( CLEANUP => 1 ) );
-  
+
     local $CWD = $tmp->stringify;
-  
+
     my $uri = URI->new(join('/', $opt_backpan_url, $path));
     say "fetch ... $uri";
     my $res = $ua->get($uri);
@@ -216,10 +218,10 @@ sub main
       say $res->{reason};
       return 2;
     }
-  
+
     do {
       my $fn = basename $uri->path;
-    
+
       open my $fh, '>', $fn;
       binmode $fh;
       print $fh $res->{content};
@@ -234,26 +236,26 @@ sub main
         say "- extract $fn $_" for @{ $archive->files };
       }
     };
-  
+
     my $source = do {
       my @children = map { $_->absolute } dir()->children;
       if(@children != 1)
       {
         say "archive doesn't contain exactly one child: @children";
       }
-  
+
       $CWD = $children[0]->stringify;
       $children[0];
     };
-  
+
     say "merge...";
-  
+
     foreach my $child ($dest->children)
     {
       next if $child->basename eq '.git';
       _rm_rf($child);
     }
-  
+
     foreach my $child ($source->children)
     {
       next if $child->basename eq '.git';
@@ -266,7 +268,7 @@ sub main
         rcopy($child, $dest->file($child->basename)) || die "unable to copy $child $!";
       }
     }
-  
+
     say "commit and tag...";
     $git->add('.');
     $git->add('-u');
@@ -279,7 +281,7 @@ sub main
     eval { local $ignore_error = 1; $git->tag($version) };
     warn $@ if $@;
   }
-  
+
   return 0;
 }
 
