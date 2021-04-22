@@ -52,6 +52,7 @@ our $_run_cb = sub {};
 our $original_run = \&Git::Wrapper::RUN;
 our $ignore_error = 0;
 our $trace = 0;
+
 sub _run_wrapper
 {
   my($self,@command) = @_;
@@ -117,6 +118,7 @@ sub main
   my $opt_trace = 0;
   my $opt_output;
   my $opt_resume;
+  my $opt_branch = 'main';
 
   GetOptions(
     'backpan_index_url=s' => \$opt_backpan_index_url,
@@ -127,6 +129,7 @@ sub main
     'resume'              => \$opt_resume,
     'output|o=s'          => \$opt_output,
     'help|h'              => sub { pod2usage({ -verbose => 2}) },
+    'branch|b=s'          => \$opt_branch,
     'version'             => sub {
       say 'cpangitify version ', ($App::cpangitify::VERSION // 'dev');
       exit 1;
@@ -188,6 +191,7 @@ sub main
   else
   {
     $git->init;
+    $git->checkout( -b => $opt_branch );
   }
 
   foreach my $rel (@rel)
