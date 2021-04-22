@@ -66,6 +66,11 @@ The URL to use for BackPAN
 
 The URL to use for metacpan.
 
+=head2 --branch | -b
+
+Default branch.  As on 0.18 this is C<main> by default.  Previously the old
+git default was used.
+
 =head2 --help | -h
 
 Print out help and exit.
