@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Moved to new GitHub org
 
 0.17      2017-08-08 12:41:51 -0400
   - Update for API interface change (?) allow author email
