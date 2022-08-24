@@ -48,7 +48,6 @@ sub _rm_rf ($file)
 
 our $_run_cb = sub {};
 our $original_run = \&Git::Wrapper::RUN;
-our $ignore_error = 0;
 our $trace = 0;
 
 sub _run_wrapper ($self, @command)
@@ -268,7 +267,7 @@ sub main ($, @args)
       author        => author($cpanid),
       'allow-empty' => 1,
     });
-    eval { local $ignore_error = 1; $git->tag($version) };
+    eval { $git->tag($version) };
     warn $@ if $@;
   }
 
