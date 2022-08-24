@@ -36,10 +36,8 @@ L<cpangitify>
 our $ua  = HTTP::Tiny->new;
 our $opt_metacpan_url;
 
-sub _rm_rf
+sub _rm_rf ($file)
 {
-  my($file) = @_;
-
   if($file->is_dir && ! -l $file)
   {
     _rm_rf($_) for $file->children;
@@ -53,9 +51,8 @@ our $original_run = \&Git::Wrapper::RUN;
 our $ignore_error = 0;
 our $trace = 0;
 
-sub _run_wrapper
+sub _run_wrapper ($self, @command)
 {
-  my($self,@command) = @_;
   my @display;
   foreach my $arg (@command)
   {
@@ -79,11 +76,9 @@ sub _run_wrapper
   $original_run->($self, @command);
 }
 
-sub author
+sub author ($cpanid)
 {
   state $cache = {};
-
-  my $cpanid = shift;
 
   unless(defined $cache->{$cpanid})
   {
@@ -103,10 +98,9 @@ sub author
   sprintf "%s <%s>", $cache->{$cpanid}->{name}, $email;
 }
 
-sub main
+sub main ($, @args)
 {
-  my $class = shift;
-  local @ARGV = @_;
+  local @ARGV = @args;
   no warnings 'redefine';
   local *Git::Wrapper::RUN = \&_run_wrapper;
   use warnings;
@@ -125,7 +119,7 @@ sub main
     'backpan_url=s'       => \$opt_backpan_url,
     'metacpan_url=s'      => \$opt_metacpan_url,
     'trace'               => \$opt_trace,
-    'skip=s'              => sub { $skip{$_} = 1 for split /,/, $_[1] },
+    'skip=s'              => sub ($version) { $skip{$_} = 1 for split /,/, $version },
     'resume'              => \$opt_resume,
     'output|o=s'          => \$opt_output,
     'help|h'              => sub { pod2usage({ -verbose => 2}) },
@@ -231,7 +225,6 @@ sub main
         1;
       },
     );
-    $DB::single = 1;
     $extract->extract( to => $CWD );
 
     my $source = do {
