@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
   - Use Archive::Libarchive::Extract instead of Archive::Extract (gh#17)
+  - Drop support for Perls older than 5.20 (gh#17)
 
 0.18      2021-04-22 02:29:50 -0600
   - Added --branch | -b option (gh#12)
