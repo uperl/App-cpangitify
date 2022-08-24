@@ -1,4 +1,4 @@
-# cpangitify ![linux](https://github.com/uperl/App-cpangitify/workflows/linux/badge.svg) ![macos](https://github.com/uperl/App-cpangitify/workflows/macos/badge.svg)
+# cpangitify ![static](https://github.com/uperl/App-cpangitify/workflows/static/badge.svg) ![linux](https://github.com/uperl/App-cpangitify/workflows/linux/badge.svg)
 
 Convert cpan distribution from BackPAN to a git repository
 
@@ -138,7 +138,7 @@ Mohammad S Anwar (MANWAR)
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Graham Ollis.
+This software is copyright (c) 2013-2022 by Graham Ollis.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
