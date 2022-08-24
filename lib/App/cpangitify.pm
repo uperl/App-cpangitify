@@ -3,7 +3,8 @@ package App::cpangitify;
 use strict;
 use warnings;
 use autodie qw( :system );
-use 5.010001;
+use 5.020;
+use experimental qw( signatures );
 use Getopt::Long qw( GetOptions );
 use Pod::Usage qw( pod2usage );
 use Path::Class qw( file dir );
@@ -15,8 +16,7 @@ use URI;
 use PerlX::Maybe qw( maybe );
 use File::Copy::Recursive qw( rcopy );
 use File::Basename qw( basename );
-use Archive::Extract;
-use File::Spec;
+use Archive::Libarchive::Extract;
 use CPAN::ReleaseHistory;
 use HTTP::Tiny;
 
@@ -79,7 +79,7 @@ sub _run_wrapper
   $original_run->($self, @command);
 }
 
-sub author($)
+sub author
 {
   state $cache = {};
 
@@ -223,23 +223,16 @@ sub main
       return 2;
     }
 
-    do {
-      my $fn = basename $uri->path;
-
-      open my $fh, '>', $fn;
-      binmode $fh;
-      print $fh $res->{content};
-      close $fh;
-
-      say "unpack... $fn";
-      my $archive = Archive::Extract->new( archive => $fn );
-      $archive->extract( to => File::Spec->curdir ) || die $archive->error;
-      unlink $fn;
-      if($trace)
-      {
-        say "- extract $fn $_" for @{ $archive->files };
-      }
-    };
+    say "unpack... @{[ basename $uri->path ]}";
+    my $extract = Archive::Libarchive::Extract->new(
+      memory => \$res->{content},
+      entry => sub ($e) {
+        say "- extract @{[ $e->pathname ]}" if $trace;
+        1;
+      },
+    );
+    $DB::single = 1;
+    $extract->extract( to => $CWD );
 
     my $source = do {
       my @children = map { $_->absolute } dir()->children;
@@ -279,7 +272,7 @@ sub main
     $git->commit({
       message       => "version $version",
       date          => "$time +0000",
-      author        => author $cpanid,
+      author        => author($cpanid),
       'allow-empty' => 1,
     });
     eval { local $ignore_error = 1; $git->tag($version) };
