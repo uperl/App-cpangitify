@@ -33,7 +33,7 @@ L<cpangitify>
 
 =cut
 
-our $ua  = HTTP::Tiny->new;
+our $ua  = HTTP::Tiny->new( verify_SSL => 1 );
 our $opt_metacpan_url;
 
 sub _rm_rf ($file)
