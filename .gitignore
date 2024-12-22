@@ -1,2 +1,4 @@
 /App-cpangitify-*
 /.build
+*.old
+*.orig
