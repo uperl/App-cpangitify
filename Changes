@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Fetch dist tarballs from metacpan instead of BackPAN (gh#20)
 
 0.20      2022-09-01 19:15:57 -0600
   - Validate SSL with (gh#19)
