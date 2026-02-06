@@ -106,8 +106,8 @@ sub main ($, @args)
 
   my %skip;
   my $opt_backpan_index_url;
-  my $opt_backpan_url = "http://backpan.perl.org/authors/id";
-  $opt_metacpan_url   = "http://fastapi.metacpan.org/";
+  my $opt_backpan_url = "https://cpan.metacpan.org/authors/id";
+  $opt_metacpan_url   = "https://fastapi.metacpan.org/";
   my $opt_trace = 0;
   my $opt_output;
   my $opt_resume;
